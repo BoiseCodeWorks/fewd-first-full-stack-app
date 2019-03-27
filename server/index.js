@@ -27,6 +27,9 @@ server.use(cors(corsOptions))
 
 //----------------------- Above usually always looks like this
 
+let authRoutes = require('./server-assets/auth/routes')
+server.use('/auth', authRoutes)
+
 
 // importing our routers and telling our server to use them
 let wifleRoutes = require('./server-assets/routes/wilfes')

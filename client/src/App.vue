@@ -1,13 +1,24 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
+      <router-link v-if="!user._id" :to="{name: 'sign-in'}">Sign-in</router-link> |
       <router-link :to="{name: 'wifles'}" >Wifles</router-link>
     </div>
     <router-view/>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'app',
+  computed: {
+    user() {
+      return this.$store.state.user
+    }
+  }
+}
+</script>
+
 
 <style>
 #app {
@@ -28,5 +39,9 @@
 
 #nav a.router-link-exact-active {
   color: #42b983;
+}
+
+.action {
+  cursor: pointer;
 }
 </style>
