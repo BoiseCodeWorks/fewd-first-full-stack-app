@@ -20,15 +20,17 @@ let corsOptions = {
         //this resolves to a bool that will either allow or deny access via the callback
         let originIsWhitelisted = whitelist.indexOf(origin) != -1 
         callback(null, originIsWhitelisted)
-    }
+    },
+    credentials: true
 }
 //utlize the cors library with the corsOptions that we just built above
 server.use(cors(corsOptions))
 
 //----------------------- Above usually always looks like this
 
-let authRoutes = require('./server-assets/auth/routes')
-server.use('/auth', authRoutes)
+let auth = require('./server-assets/auth/routes')
+server.use(auth.session)
+server.use('/auth', auth.router)
 
 
 // importing our routers and telling our server to use them

@@ -9,6 +9,7 @@ new Vue({
   router,
   store,
   mounted(){
+    store.dispatch('authenticate')
     store.dispatch('getWifles')
   },
   render: function (h) { return h(App) }

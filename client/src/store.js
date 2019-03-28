@@ -7,12 +7,14 @@ Vue.use(Vuex)
 
 let _auth = Axios.create({
   baseURL: '//localhost:3000/auth',
-  timeout: 3000
+  timeout: 3000,
+  withCredentials: true
 })
 
 let _api = Axios.create({
   baseURL: '//localhost:3000/api/wifles',
-  timeout: 3000
+  timeout: 3000,
+  withCredentials: true
 })
 
 export default new Vuex.Store({
@@ -45,6 +47,16 @@ export default new Vuex.Store({
           console.log(res)
           commit('user', res.data)          
           router.push({name: 'wifles'})
+        })
+        .catch(e => console.error(e))
+    },
+    authenticate({commit}) {
+      _auth.get('authenticate')
+        .then(res => {
+          console.log(res)
+          if (res.data._id) {
+            commit('user', res.data)
+          }
         })
         .catch(e => console.error(e))
     },
