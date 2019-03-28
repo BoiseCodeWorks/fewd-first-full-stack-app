@@ -2,7 +2,7 @@ let router = require('express').Router()
 let Wifle = require('../models/Wifle')
 
 router.get('/', (req, res, next) => {
-    Wifle.find({})
+    Wifle.find({}).populate('author', 'displayName')
         .then(wifles => {
             res.send(wifles)
         })
@@ -10,6 +10,7 @@ router.get('/', (req, res, next) => {
 })
 
 router.post('/', (req, res, next) => {
+    req.body.author = req.session.uid
     Wifle.create(req.body)
         .then(wifle => {
             res.send(wifle)
@@ -27,6 +28,7 @@ router.put('/:id/comments', (req, res, next) => {
                 //cannot update a comment with this routes logic
             if (!req.body._id) {
                 //create a comment
+                req.body.author = req.session.uid
                 wifle.comments.push(req.body)
             } else {
                 //delete the comment

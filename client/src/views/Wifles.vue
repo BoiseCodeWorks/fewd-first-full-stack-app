@@ -7,30 +7,28 @@
        </div>
        <div class="row justify-content-center">
            <div class="col-10">
-               <form @submit.prevent="createWifle" class="d-flex flex-column">
-                    <input placeholder="author" type="text" v-model="wifle.author" required="required">
+               <form v-if="showForm" @submit.prevent="createWifle" class="d-flex flex-column">
                     <textarea placeholder="What I feel like expressing" name="" id="" cols="30" rows="10" v-model="wifle.content" required="required"></textarea>
                     <button class="btn btn-info" type="submit">Submit</button>
                 </form>
+                <p class="action" @click="showForm = !showForm">{{showForm ? 'Collapse Form' : 'Show Form'}}</p>
            </div>
        </div>
-       <div class="row">
-           <div class="col-12 text-center" v-for="wifle in wifles">
-               <h2>{{wifle.author}}</h2>
-               <h5>{{wifle.content}}</h5>
-           </div>
+       <div class="row justify-content-center">
+           <wifle class="col-10 text-center" :wifleData="wifle" v-for="wifle in wifles"></wifle>
        </div>
     </div>
 </template>
 
 <script>
+import Wifle from '@/components/Wifle.vue'
 export default {
    name: "wifles",
    props: [],
    data() {
       return {
+          showForm: true,
           wifle: {
-              author: '',
               content: ''
           }
       }
@@ -44,11 +42,12 @@ export default {
        createWifle() {
            this.$store.dispatch('createWifle', {...this.wifle})
            this.wifle = {
-               author: '',
                content: ''
            }
        }
    },
-   components: {}
+   components: {
+       Wifle
+   }
 }
 </script>

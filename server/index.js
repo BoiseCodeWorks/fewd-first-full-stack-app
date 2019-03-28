@@ -34,7 +34,7 @@ server.use('/auth', auth.router)
 
 
 // importing our routers and telling our server to use them
-let wifleRoutes = require('./server-assets/routes/wilfes')
+let wifleRoutes = require('./server-assets/routes/wifles')
 server.use('/api/wifles', wifleRoutes)
 
 

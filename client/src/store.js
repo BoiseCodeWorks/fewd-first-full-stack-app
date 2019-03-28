@@ -78,6 +78,14 @@ export default new Vuex.Store({
           dispatch('getWifles')
         })
         .catch(e => console.error(e))
+    },
+    comment({dispatch}, payload) {
+      _api.put(payload.wifleId + '/comments', payload.comment)
+        .then(res => {
+          console.log(res)
+          dispatch('getWifles')
+        })
+        .catch(e => console.error(e))
     }
     //#endregion
   }
